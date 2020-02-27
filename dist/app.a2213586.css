@@ -1,3 +1,11 @@
+.timer {
+  width: 100%;
+  font-family: "Ultra", serif;
+  font-size: 350%;
+}
+.timer p {
+  margin: 0;
+}
 html,
 body {
   margin: 0;
@@ -8,7 +16,7 @@ body {
   color: #fff;
   margin: 0;
   padding: 5%;
-  height: 1000px;
+  height: 600px;
 }
 .everything h1 {
   font-family: "Julius Sans One", sans-serif;
@@ -25,10 +33,6 @@ body {
   display: flex;
   margin: 1%;
   margin-left: 0;
-}
-.everything .timer {
-  font-family: "Ultra", serif;
-  font-size: 900%;
 }
 
 /*# sourceMappingURL=/app.a2213586.css.map */

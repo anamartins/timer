@@ -32802,7 +32802,127 @@ DateInput.propTypes = {
 };
 var _default = DateInput;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","./style.scss":"components/date/style.scss"}],"components/app/style.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","./style.scss":"components/date/style.scss"}],"components/timer/style.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel/src/builtins/css-loader.js"}],"components/timer/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+require("./style.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Timer =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Timer, _React$Component);
+
+  function Timer(props) {
+    var _this;
+
+    _classCallCheck(this, Timer);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Timer).call(this, props));
+    _this.showTime = _this.showTime.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Timer, [{
+    key: "showTime",
+    value: function showTime() {
+      var p = [];
+
+      if (this.props.time.years !== 0) {
+        p.push(_react.default.createElement("p", {
+          key: p.length
+        }, this.props.time.years, " year", this.props.time.years > 1 ? "s" : null, ","));
+      }
+
+      if (this.props.time.months !== 0) {
+        p.push(_react.default.createElement("p", {
+          key: p.length
+        }, this.props.time.months, " month", this.props.time.months > 1 ? "s" : "", ","));
+      }
+
+      if (this.props.time.weeks !== 0) {
+        p.push(_react.default.createElement("p", {
+          key: p.length
+        }, this.props.time.weeks, " week", this.props.time.weeks > 1 ? "s" : "", ","));
+      }
+
+      if (this.props.time.days !== 0) {
+        p.push(_react.default.createElement("p", {
+          key: p.length
+        }, this.props.time.days, " day", this.props.time.days > 1 ? "s" : "", ","));
+      }
+
+      if (this.props.time.hours !== 0) {
+        p.push(_react.default.createElement("p", {
+          key: p.length
+        }, this.props.time.hours, " hour", this.props.time.hours > 1 ? "s" : "", ","));
+      }
+
+      if (this.props.time.minutes !== 0) {
+        p.push(_react.default.createElement("p", {
+          key: p.length
+        }, this.props.time.minutes, " minute", this.props.time.minutes > 1 ? "s" : ""));
+      }
+
+      if (this.props.time.seconds !== 0) {
+        p.push(_react.default.createElement("p", {
+          key: p.length
+        }, "and ", this.props.time.seconds, " second", this.props.time.seconds > 1 ? "s" : "", "."));
+      }
+
+      return p;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("div", {
+        className: "timer"
+      }, this.showTime());
+    }
+  }]);
+
+  return Timer;
+}(_react.default.Component);
+
+Timer.propTypes = {
+  time: _propTypes.default.object
+};
+var _default = Timer;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","./style.scss":"components/timer/style.scss"}],"components/app/style.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -32815,6 +32935,8 @@ var _react = _interopRequireDefault(require("react"));
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
 var _date = _interopRequireDefault(require("/components/date"));
+
+var _timer = _interopRequireDefault(require("/components/timer"));
 
 require("./style.scss");
 
@@ -32850,28 +32972,66 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(App).call(this, props));
     _this.state = {
-      currentDate: new Date()
+      userDate: null,
+      time: {
+        years: 0,
+        months: 0,
+        weeks: 0,
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0
+      }
     };
-    _this.getDateDiff = _this.getDateDiff.bind(_assertThisInitialized(_this));
+    _this.onDateChange = _this.onDateChange.bind(_assertThisInitialized(_this));
+    _this.updateTime = _this.updateTime.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(App, [{
-    key: "getDateDiff",
-    value: function getDateDiff(userDate) {
-      console.log("userDate", userDate);
-      console.log("userDAte getTime", userDate.getTime());
-      console.log("c", this.state.currentDate);
-      console.log("c get Time", this.state.currentDate.getTime());
-      var diff = userDate.getTime() - this.state.currentDate.getTime();
-      console.log("diff", diff);
-      console.log("seconds: ", diff / 1000);
-      console.log("minutes: ", diff / 1000 / 60);
-      console.log("hours: ", diff / 1000 / 60 / 60);
-      console.log("days: ", diff / 1000 / 60 / 60 / 24);
-      console.log("weeks: ", diff / 1000 / 60 / 60 / 24 / 7);
-      console.log("months: ", diff / 1000 / 60 / 60 / 24 / 7 / 4);
-      console.log("years: ", diff / 1000 / 60 / 60 / 24 / 7 / 4 / 12);
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProp, prevState) {
+      if (prevState.userDate === null && this.state.userDate !== null) {
+        this.updateTime();
+        setInterval(this.updateTime, 1000);
+      }
+    }
+  }, {
+    key: "updateTime",
+    value: function updateTime() {
+      var diff = this.state.userDate.getTime() - new Date();
+      var years = diff / 1000 / 60 / 60 / 24 / 7 / 4 / 12;
+      var yearsInt = Math.floor(years);
+      var months = (years - yearsInt) * 12;
+      var monthsInt = Math.floor(months);
+      var weeks = (months - monthsInt) * 4;
+      var weeksInt = Math.floor(weeks);
+      var days = (weeks - weeksInt) * 7;
+      var daysInt = Math.floor(days);
+      var hours = (days - daysInt) * 24;
+      var hoursInt = Math.floor(hours);
+      var minutes = (hours - hoursInt) * 60;
+      var minutesInt = Math.floor(minutes);
+      var seconds = (minutes - minutesInt) * 60;
+      var secondsInt = Math.floor(seconds);
+      this.setState({
+        time: {
+          years: yearsInt,
+          months: monthsInt,
+          weeks: weeksInt,
+          days: daysInt,
+          hours: hoursInt,
+          minutes: minutesInt,
+          seconds: secondsInt
+        }
+      });
+    }
+  }, {
+    key: "onDateChange",
+    value: function onDateChange(userDate) {
+      this.setState({
+        userDate: userDate
+      });
     }
   }, {
     key: "render",
@@ -32879,7 +33039,9 @@ function (_React$Component) {
       return _react.default.createElement("div", {
         className: "everything"
       }, _react.default.createElement("h1", null, "Quanto tempo falta?"), _react.default.createElement(_date.default, {
-        onDateChange: this.getDateDiff
+        onDateChange: this.onDateChange
+      }), _react.default.createElement(_timer.default, {
+        time: this.state.time
       }));
     }
   }]);
@@ -32888,7 +33050,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 _reactDom.default.render(_react.default.createElement(App, null), document.getElementById("root"));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","/components/date":"components/date/index.js","./style.scss":"components/app/style.scss"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","/components/date":"components/date/index.js","/components/timer":"components/timer/index.js","./style.scss":"components/app/style.scss"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
