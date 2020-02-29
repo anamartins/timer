@@ -5,6 +5,8 @@ import Timer from "/components/timer";
 
 import "./style.scss";
 
+let interval;
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -23,28 +25,47 @@ class App extends React.Component {
 
     this.onDateChange = this.onDateChange.bind(this);
     this.updateTime = this.updateTime.bind(this);
+    this.changeURL = this.changeURL.bind(this);
+  }
+
+  componentDidMount() {
+    let url = new URL(window.location.toString());
+    let param = new URLSearchParams(url.search);
+    let date = param.get("date");
+
+    console.log("url app did mount: ", url);
+    console.log("param app did mount: ", url.search);
+    console.log("date: app did mount ", date);
+
+    console.log("tipo de date", typeof date);
+
+    if (date !== null) {
+      console.log("entrou no if");
+      this.onDateChange(new Date(date));
+    }
   }
 
   componentDidUpdate(prevProp, prevState) {
     if (prevState.userDate === null && this.state.userDate !== null) {
       this.updateTime();
-      setInterval(this.updateTime, 1000);
+      interval = setInterval(this.updateTime, 1000);
     }
   }
 
   updateTime() {
     let diff = this.state.userDate.getTime() - new Date();
 
-    let years = diff / 1000 / 60 / 60 / 24 / 7 / 4 / 12;
-    let yearsInt = Math.floor(years);
+    // let years = diff / 1000 / 60 / 60 / 24 / 7 / 4 / 12;
+    // let yearsInt = Math.floor(years);
 
-    let months = (years - yearsInt) * 12;
-    let monthsInt = Math.floor(months);
+    // let months = (years - yearsInt) * 12;
+    // let monthsInt = Math.floor(months);
 
-    let weeks = (months - monthsInt) * 4;
-    let weeksInt = Math.floor(weeks);
+    // let weeks = (months - monthsInt) * 4;
+    // let weeksInt = Math.floor(weeks);
 
-    let days = (weeks - weeksInt) * 7;
+    let days = diff / 1000 / 60 / 60 / 24;
+    // let days = (weeks - weeksInt) * 7;
     let daysInt = Math.floor(days);
 
     let hours = (days - daysInt) * 24;
@@ -58,9 +79,9 @@ class App extends React.Component {
 
     this.setState({
       time: {
-        years: yearsInt,
-        months: monthsInt,
-        weeks: weeksInt,
+        // years: yearsInt,
+        // months: monthsInt,
+        // weeks: weeksInt,
         days: daysInt,
         hours: hoursInt,
         minutes: minutesInt,
@@ -71,14 +92,41 @@ class App extends React.Component {
 
   onDateChange(userDate) {
     this.setState({ userDate: userDate });
+    console.log("userdate on change date: ", userDate);
+    if (userDate === null) {
+      clearInterval(interval);
+    }
+  }
+
+  changeURL(userDate) {
+    let date = userDate;
+
+    if (date !== "") {
+      userDate = new Date(userDate);
+      this.onDateChange(userDate);
+      console.log("date changeURL", date);
+      console.log("userdate changeURL", userDate);
+      history.replaceState(date, "Quanto tempo falta?", "?date=" + date);
+    } else {
+      console.log("date null!");
+      history.replaceState("", "Quanto tempo falta?", "/");
+      this.onDateChange(null);
+    }
+
+    // this.onDateChange(userDate);
+    // history.replaceState(date, "Quanto tempo falta?", "?date=" + date.userDate);
   }
 
   render() {
     return (
       <div className="everything">
         <h1>Quanto tempo falta?</h1>
-        <DateInput onDateChange={this.onDateChange} />
-        <Timer time={this.state.time} />
+        <DateInput
+          onDateChange={this.onDateChange}
+          knownDate={this.state.userDate}
+          changeURL={this.changeURL}
+        />
+        {this.state.userDate && <Timer time={this.state.time} />}
       </div>
     );
   }

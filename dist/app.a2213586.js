@@ -32767,16 +32767,46 @@ function (_React$Component) {
     _classCallCheck(this, DateInput);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(DateInput).call(this, props));
+    _this.state = {
+      value: ""
+    };
     _this.onChange = _this.onChange.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(DateInput, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProp) {
+      if (prevProp.knownDate !== this.props.knownDate && this.props.knownDate !== null) {
+        var day = this.props.knownDate.getDate();
+        var month = this.props.knownDate.getMonth() + 1;
+        var year = this.props.knownDate.getFullYear();
+        var hour = this.props.knownDate.getHours();
+        var minute = this.props.knownDate.getMinutes();
+        day = this.standardizeDate(day);
+        month = this.standardizeDate(month);
+        year = this.standardizeDate(year);
+        hour = this.standardizeDate(hour);
+        minute = this.standardizeDate(minute);
+        var fullDate = year + "-" + month + "-" + day + "T" + hour + ":" + minute;
+        this.setState({
+          value: fullDate
+        });
+      }
+    }
+  }, {
+    key: "standardizeDate",
+    value: function standardizeDate(number) {
+      var item = number.toString();
+      return item.padStart(2, "0");
+    }
+  }, {
     key: "onChange",
     value: function onChange(event) {
-      var userDate = event.target.value;
-      userDate = new Date(userDate);
-      this.props.onDateChange(userDate);
+      this.setState({
+        value: event.target.value
+      });
+      this.props.changeURL(event.target.value);
     }
   }, {
     key: "render",
@@ -32788,8 +32818,9 @@ function (_React$Component) {
       }, "Qual \xE9 a data que voc\xEA quer lembrar?"), _react.default.createElement("input", {
         id: "date",
         type: "datetime-local",
-        min: CURRENT_DATE,
-        onChange: this.onChange
+        min: this.CURRENT_DATE,
+        onChange: this.onChange,
+        value: this.state.value
       }));
     }
   }]);
@@ -32798,7 +32829,9 @@ function (_React$Component) {
 }(_react.default.Component);
 
 DateInput.propTypes = {
-  onDateChange: _propTypes.default.func
+  onDateChange: _propTypes.default.func,
+  changeURL: _propTypes.default.func,
+  knownDate: _propTypes.default.instanceOf(Date)
 };
 var _default = DateInput;
 exports.default = _default;
@@ -32859,25 +32892,29 @@ function (_React$Component) {
   _createClass(Timer, [{
     key: "showTime",
     value: function showTime() {
-      var p = [];
-
-      if (this.props.time.years !== 0) {
-        p.push(_react.default.createElement("p", {
-          key: p.length
-        }, this.props.time.years, " year", this.props.time.years > 1 ? "s" : null, ","));
-      }
-
-      if (this.props.time.months !== 0) {
-        p.push(_react.default.createElement("p", {
-          key: p.length
-        }, this.props.time.months, " month", this.props.time.months > 1 ? "s" : "", ","));
-      }
-
-      if (this.props.time.weeks !== 0) {
-        p.push(_react.default.createElement("p", {
-          key: p.length
-        }, this.props.time.weeks, " week", this.props.time.weeks > 1 ? "s" : "", ","));
-      }
+      var p = []; // if (this.props.time.years !== 0) {
+      //   p.push(
+      //     <p key={p.length}>
+      //       {this.props.time.years} year{this.props.time.years > 1 ? "s" : null},
+      //     </p>
+      //   );
+      // }
+      // if (this.props.time.months !== 0) {
+      //   p.push(
+      //     <p key={p.length}>
+      //       {this.props.time.months} month
+      //       {this.props.time.months > 1 ? "s" : ""},
+      //     </p>
+      //   );
+      // }
+      // if (this.props.time.weeks !== 0) {
+      //   p.push(
+      //     <p key={p.length}>
+      //       {this.props.time.weeks} week
+      //       {this.props.time.weeks > 1 ? "s" : ""},
+      //     </p>
+      //   );
+      // }
 
       if (this.props.time.days !== 0) {
         p.push(_react.default.createElement("p", {
@@ -32960,6 +32997,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+var interval;
+
 var App =
 /*#__PURE__*/
 function (_React$Component) {
@@ -32985,28 +33024,46 @@ function (_React$Component) {
     };
     _this.onDateChange = _this.onDateChange.bind(_assertThisInitialized(_this));
     _this.updateTime = _this.updateTime.bind(_assertThisInitialized(_this));
+    _this.changeURL = _this.changeURL.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(App, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var url = new URL(window.location.toString());
+      var param = new URLSearchParams(url.search);
+      var date = param.get("date");
+      console.log("url app did mount: ", url);
+      console.log("param app did mount: ", url.search);
+      console.log("date: app did mount ", date);
+      console.log("tipo de date", _typeof(date));
+
+      if (date !== null) {
+        console.log("entrou no if");
+        this.onDateChange(new Date(date));
+      }
+    }
+  }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProp, prevState) {
       if (prevState.userDate === null && this.state.userDate !== null) {
         this.updateTime();
-        setInterval(this.updateTime, 1000);
+        interval = setInterval(this.updateTime, 1000);
       }
     }
   }, {
     key: "updateTime",
     value: function updateTime() {
-      var diff = this.state.userDate.getTime() - new Date();
-      var years = diff / 1000 / 60 / 60 / 24 / 7 / 4 / 12;
-      var yearsInt = Math.floor(years);
-      var months = (years - yearsInt) * 12;
-      var monthsInt = Math.floor(months);
-      var weeks = (months - monthsInt) * 4;
-      var weeksInt = Math.floor(weeks);
-      var days = (weeks - weeksInt) * 7;
+      var diff = this.state.userDate.getTime() - new Date(); // let years = diff / 1000 / 60 / 60 / 24 / 7 / 4 / 12;
+      // let yearsInt = Math.floor(years);
+      // let months = (years - yearsInt) * 12;
+      // let monthsInt = Math.floor(months);
+      // let weeks = (months - monthsInt) * 4;
+      // let weeksInt = Math.floor(weeks);
+
+      var days = diff / 1000 / 60 / 60 / 24; // let days = (weeks - weeksInt) * 7;
+
       var daysInt = Math.floor(days);
       var hours = (days - daysInt) * 24;
       var hoursInt = Math.floor(hours);
@@ -33016,9 +33073,9 @@ function (_React$Component) {
       var secondsInt = Math.floor(seconds);
       this.setState({
         time: {
-          years: yearsInt,
-          months: monthsInt,
-          weeks: weeksInt,
+          // years: yearsInt,
+          // months: monthsInt,
+          // weeks: weeksInt,
           days: daysInt,
           hours: hoursInt,
           minutes: minutesInt,
@@ -33032,6 +33089,30 @@ function (_React$Component) {
       this.setState({
         userDate: userDate
       });
+      console.log("userdate on change date: ", userDate);
+
+      if (userDate === null) {
+        clearInterval(interval);
+      }
+    }
+  }, {
+    key: "changeURL",
+    value: function changeURL(userDate) {
+      var date = userDate;
+
+      if (date !== "") {
+        userDate = new Date(userDate);
+        this.onDateChange(userDate);
+        console.log("date changeURL", date);
+        console.log("userdate changeURL", userDate);
+        history.replaceState(date, "Quanto tempo falta?", "?date=" + date);
+      } else {
+        console.log("date null!");
+        history.replaceState("", "Quanto tempo falta?", "/");
+        this.onDateChange(null);
+      } // this.onDateChange(userDate);
+      // history.replaceState(date, "Quanto tempo falta?", "?date=" + date.userDate);
+
     }
   }, {
     key: "render",
@@ -33039,8 +33120,10 @@ function (_React$Component) {
       return _react.default.createElement("div", {
         className: "everything"
       }, _react.default.createElement("h1", null, "Quanto tempo falta?"), _react.default.createElement(_date.default, {
-        onDateChange: this.onDateChange
-      }), _react.default.createElement(_timer.default, {
+        onDateChange: this.onDateChange,
+        knownDate: this.state.userDate,
+        changeURL: this.changeURL
+      }), this.state.userDate && _react.default.createElement(_timer.default, {
         time: this.state.time
       }));
     }
