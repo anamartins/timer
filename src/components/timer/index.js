@@ -35,6 +35,8 @@ class Timer extends React.Component {
     //   );
     // }
 
+    console.log("ó o time", this.props.time);
+
     if (this.props.time.days !== 0) {
       p.push(
         <p key={p.length}>

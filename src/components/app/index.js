@@ -33,14 +33,7 @@ class App extends React.Component {
     let param = new URLSearchParams(url.search);
     let date = param.get("date");
 
-    console.log("url app did mount: ", url);
-    console.log("param app did mount: ", url.search);
-    console.log("date: app did mount ", date);
-
-    console.log("tipo de date", typeof date);
-
     if (date !== null) {
-      console.log("entrou no if");
       this.onDateChange(new Date(date));
     }
   }
@@ -53,20 +46,62 @@ class App extends React.Component {
   }
 
   updateTime() {
-    let diff = this.state.userDate.getTime() - new Date();
+    let dateFuture = this.state.userDate;
+    let datePresent = new Date();
+
+    let years = dateFuture.getFullYear() - datePresent.getFullYear();
 
     // let years = diff / 1000 / 60 / 60 / 24 / 7 / 4 / 12;
     // let yearsInt = Math.floor(years);
 
-    // let months = (years - yearsInt) * 12;
-    // let monthsInt = Math.floor(months);
+    let months = years * 12 + (dateFuture.getMonth() - datePresent.getMonth());
+    let dayPresent = datePresent.getDate();
+    let dayFuture = dateFuture.getDate();
+    let dayDiff = dayFuture - dayPresent;
 
-    // let weeks = (months - monthsInt) * 4;
-    // let weeksInt = Math.floor(weeks);
+    if (dayDiff < 0 && months !== 0) {
+      console.log("negativo");
+      if (months % 12 === 0) {
+        console.log("monhts", months % 12);
+        years -= 1;
+        console.log("years", years);
+        months = months - years * 12 - 1;
+      }
+    }
 
+    if (months % 12 === 0) {
+      months = months - years * 12;
+    }
+
+    if (months > 12) {
+      years = Math.floor(months / 12);
+      months = months % 12;
+    }
+
+    let diff = dateFuture.getTime() - datePresent;
     let days = diff / 1000 / 60 / 60 / 24;
-    // let days = (weeks - weeksInt) * 7;
     let daysInt = Math.floor(days);
+    let daysMinus;
+    if (years > 0) {
+      //   console.log("years", years);
+      //   console.log("years%4", years % 4);
+      //   console.log("years%4 + 1", (years + 1) % 4);
+      //   console.log("years/4 trunc", Math.trunc((years + 1) / 4));
+      //   console.log("years/4", (years + 1) / 4);
+
+      if (years % 4 === 0) {
+        //multiple of 4
+        daysMinus = years * 1461;
+      }
+      if (years % 4 === 1) {
+        if (datePresent.getFullYear() % 4 === 0) {
+          // we are in a leap year on the present
+          if (datePresent.getMonth < 1) {
+            // we do not arrive on feb 29
+          }
+        }
+      }
+    }
 
     let hours = (days - daysInt) * 24;
     let hoursInt = Math.floor(hours);
@@ -79,9 +114,9 @@ class App extends React.Component {
 
     this.setState({
       time: {
-        // years: yearsInt,
-        // months: monthsInt,
-        // weeks: weeksInt,
+        years: years,
+        months: months,
+        weeks: 0,
         days: daysInt,
         hours: hoursInt,
         minutes: minutesInt,
@@ -92,7 +127,6 @@ class App extends React.Component {
 
   onDateChange(userDate) {
     this.setState({ userDate: userDate });
-    console.log("userdate on change date: ", userDate);
     if (userDate === null) {
       clearInterval(interval);
     }
@@ -104,17 +138,11 @@ class App extends React.Component {
     if (date !== "") {
       userDate = new Date(userDate);
       this.onDateChange(userDate);
-      console.log("date changeURL", date);
-      console.log("userdate changeURL", userDate);
       history.replaceState(date, "Quanto tempo falta?", "?date=" + date);
     } else {
-      console.log("date null!");
       history.replaceState("", "Quanto tempo falta?", "/");
       this.onDateChange(null);
     }
-
-    // this.onDateChange(userDate);
-    // history.replaceState(date, "Quanto tempo falta?", "?date=" + date.userDate);
   }
 
   render() {

@@ -32916,6 +32916,8 @@ function (_React$Component) {
       //   );
       // }
 
+      console.log("ó o time", this.props.time);
+
       if (this.props.time.days !== 0) {
         p.push(_react.default.createElement("p", {
           key: p.length
@@ -33034,13 +33036,8 @@ function (_React$Component) {
       var url = new URL(window.location.toString());
       var param = new URLSearchParams(url.search);
       var date = param.get("date");
-      console.log("url app did mount: ", url);
-      console.log("param app did mount: ", url.search);
-      console.log("date: app did mount ", date);
-      console.log("tipo de date", _typeof(date));
 
       if (date !== null) {
-        console.log("entrou no if");
         this.onDateChange(new Date(date));
       }
     }
@@ -33055,16 +33052,61 @@ function (_React$Component) {
   }, {
     key: "updateTime",
     value: function updateTime() {
-      var diff = this.state.userDate.getTime() - new Date(); // let years = diff / 1000 / 60 / 60 / 24 / 7 / 4 / 12;
+      var dateFuture = this.state.userDate;
+      var datePresent = new Date();
+      var years = dateFuture.getFullYear() - datePresent.getFullYear(); // let years = diff / 1000 / 60 / 60 / 24 / 7 / 4 / 12;
       // let yearsInt = Math.floor(years);
-      // let months = (years - yearsInt) * 12;
-      // let monthsInt = Math.floor(months);
-      // let weeks = (months - monthsInt) * 4;
-      // let weeksInt = Math.floor(weeks);
 
-      var days = diff / 1000 / 60 / 60 / 24; // let days = (weeks - weeksInt) * 7;
+      var months = years * 12 + (dateFuture.getMonth() - datePresent.getMonth());
+      var dayPresent = datePresent.getDate();
+      var dayFuture = dateFuture.getDate();
+      var dayDiff = dayFuture - dayPresent;
 
+      if (dayDiff < 0 && months !== 0) {
+        console.log("negativo");
+
+        if (months % 12 === 0) {
+          console.log("monhts", months % 12);
+          years -= 1;
+          console.log("years", years);
+          months = months - years * 12 - 1;
+        }
+      }
+
+      if (months % 12 === 0) {
+        months = months - years * 12;
+      }
+
+      if (months > 12) {
+        years = Math.floor(months / 12);
+        months = months % 12;
+      }
+
+      var diff = dateFuture.getTime() - datePresent;
+      var days = diff / 1000 / 60 / 60 / 24;
       var daysInt = Math.floor(days);
+      var daysMinus;
+
+      if (years > 0) {
+        //   console.log("years", years);
+        //   console.log("years%4", years % 4);
+        //   console.log("years%4 + 1", (years + 1) % 4);
+        //   console.log("years/4 trunc", Math.trunc((years + 1) / 4));
+        //   console.log("years/4", (years + 1) / 4);
+        if (years % 4 === 0) {
+          //multiple of 4
+          daysMinus = years * 1461;
+        }
+
+        if (years % 4 === 1) {
+          if (datePresent.getFullYear() % 4 === 0) {
+            // we are in a leap year on the present
+            if (datePresent.getMonth < 1) {// we do not arrive on feb 29
+            }
+          }
+        }
+      }
+
       var hours = (days - daysInt) * 24;
       var hoursInt = Math.floor(hours);
       var minutes = (hours - hoursInt) * 60;
@@ -33073,9 +33115,9 @@ function (_React$Component) {
       var secondsInt = Math.floor(seconds);
       this.setState({
         time: {
-          // years: yearsInt,
-          // months: monthsInt,
-          // weeks: weeksInt,
+          years: years,
+          months: months,
+          weeks: 0,
           days: daysInt,
           hours: hoursInt,
           minutes: minutesInt,
@@ -33089,7 +33131,6 @@ function (_React$Component) {
       this.setState({
         userDate: userDate
       });
-      console.log("userdate on change date: ", userDate);
 
       if (userDate === null) {
         clearInterval(interval);
@@ -33103,16 +33144,11 @@ function (_React$Component) {
       if (date !== "") {
         userDate = new Date(userDate);
         this.onDateChange(userDate);
-        console.log("date changeURL", date);
-        console.log("userdate changeURL", userDate);
         history.replaceState(date, "Quanto tempo falta?", "?date=" + date);
       } else {
-        console.log("date null!");
         history.replaceState("", "Quanto tempo falta?", "/");
         this.onDateChange(null);
-      } // this.onDateChange(userDate);
-      // history.replaceState(date, "Quanto tempo falta?", "?date=" + date.userDate);
-
+      }
     }
   }, {
     key: "render",
