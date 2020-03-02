@@ -11,31 +11,30 @@ class Timer extends React.Component {
 
   showTime() {
     let p = [];
-    // if (this.props.time.years !== 0) {
-    //   p.push(
-    //     <p key={p.length}>
-    //       {this.props.time.years} year{this.props.time.years > 1 ? "s" : null},
-    //     </p>
-    //   );
-    // }
-    // if (this.props.time.months !== 0) {
-    //   p.push(
-    //     <p key={p.length}>
-    //       {this.props.time.months} month
-    //       {this.props.time.months > 1 ? "s" : ""},
-    //     </p>
-    //   );
-    // }
-    // if (this.props.time.weeks !== 0) {
-    //   p.push(
-    //     <p key={p.length}>
-    //       {this.props.time.weeks} week
-    //       {this.props.time.weeks > 1 ? "s" : ""},
-    //     </p>
-    //   );
-    // }
+    if (this.props.time.years !== 0) {
+      p.push(
+        <p key={p.length}>
+          {this.props.time.years} year{this.props.time.years > 1 ? "s" : null},
+        </p>
+      );
+    }
+    if (this.props.time.months !== 0) {
+      p.push(
+        <p key={p.length}>
+          {this.props.time.months} month
+          {this.props.time.months > 1 ? "s" : ""},
+        </p>
+      );
+    }
 
-    console.log("ó o time", this.props.time);
+    if (this.props.time.weeks !== 0) {
+      p.push(
+        <p key={p.length}>
+          {this.props.time.weeks} week
+          {this.props.time.weeks > 1 ? "s" : ""},
+        </p>
+      );
+    }
 
     if (this.props.time.days !== 0) {
       p.push(

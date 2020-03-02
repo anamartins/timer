@@ -46,7 +46,7 @@ class DateInput extends React.Component {
 
   onChange(event) {
     this.setState({ value: event.target.value });
-    this.props.changeURL(event.target.value);
+    this.props.onDateChange(event.target.value);
   }
 
   render() {
@@ -67,7 +67,6 @@ class DateInput extends React.Component {
 
 DateInput.propTypes = {
   onDateChange: PropTypes.func,
-  changeURL: PropTypes.func,
   knownDate: PropTypes.instanceOf(Date)
 };
 
