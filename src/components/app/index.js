@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import DateInput from "/components/date";
 import Timer from "/components/timer";
 import moment from "moment";
-
 import "./style.scss";
 
 let interval;
@@ -69,12 +68,12 @@ class App extends React.Component {
       let userDate = new Date(date);
       this.setState({ userDate: userDate });
       if (moment(date).isValid()) {
-        history.replaceState(date, "Quanto tempo falta?", "?date=" + date);
+        history.replaceState(date, "How much time?", "?date=" + date);
       } else {
         this.setState({ userDate: null });
       }
     } else {
-      history.replaceState("", "Quanto tempo falta?", "/");
+      history.replaceState("", "How much time?", "/");
       this.setState({ userDate: null });
       clearInterval(interval);
     }
@@ -83,7 +82,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="everything">
-        <h1>Quanto tempo falta?</h1>
+        <h1>How much time left?</h1>
         <DateInput
           onDateChange={this.onDateChange}
           knownDate={this.state.userDate}

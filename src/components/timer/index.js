@@ -11,63 +11,65 @@ class Timer extends React.Component {
 
   showTime() {
     let p = [];
-    if (this.props.time.years !== 0) {
+    let time = this.props.time;
+    let { years, months, weeks, days, hours, minutes, seconds } = time;
+    if (years !== 0) {
       p.push(
         <p key={p.length}>
-          {this.props.time.years} year{this.props.time.years > 1 ? "s" : null},
+          {years} year{years > 1 ? "s" : null},
         </p>
       );
     }
-    if (this.props.time.months !== 0) {
+    if (months !== 0) {
       p.push(
         <p key={p.length}>
-          {this.props.time.months} month
-          {this.props.time.months > 1 ? "s" : ""},
-        </p>
-      );
-    }
-
-    if (this.props.time.weeks !== 0) {
-      p.push(
-        <p key={p.length}>
-          {this.props.time.weeks} week
-          {this.props.time.weeks > 1 ? "s" : ""},
+          {months} month
+          {months > 1 ? "s" : ""},
         </p>
       );
     }
 
-    if (this.props.time.days !== 0) {
+    if (weeks !== 0) {
       p.push(
         <p key={p.length}>
-          {this.props.time.days} day
-          {this.props.time.days > 1 ? "s" : ""},
+          {weeks} week
+          {weeks > 1 ? "s" : ""},
         </p>
       );
     }
 
-    if (this.props.time.hours !== 0) {
+    if (days !== 0) {
       p.push(
         <p key={p.length}>
-          {this.props.time.hours} hour
-          {this.props.time.hours > 1 ? "s" : ""},
+          {days} day
+          {days > 1 ? "s" : ""},
         </p>
       );
     }
 
-    if (this.props.time.minutes !== 0) {
+    if (hours !== 0) {
       p.push(
         <p key={p.length}>
-          {this.props.time.minutes} minute
-          {this.props.time.minutes > 1 ? "s" : ""}
+          {hours} hour
+          {hours > 1 ? "s" : ""},
         </p>
       );
     }
 
-    if (this.props.time.seconds !== 0) {
+    if (minutes !== 0) {
       p.push(
         <p key={p.length}>
-          and {this.props.time.seconds} second
-          {this.props.time.seconds > 1 ? "s" : ""}.
+          {minutes} minute
+          {minutes > 1 ? "s" : ""}
+        </p>
+      );
+    }
+
+    if (seconds !== 0) {
+      p.push(
+        <p key={p.length}>
+          and {seconds} second
+          {seconds > 1 ? "s" : ""}.
         </p>
       );
     }

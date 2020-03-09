@@ -32648,7 +32648,7 @@ if ("development" !== 'production') {
   // http://fb.me/prop-types-in-prod
   module.exports = require('./factoryWithThrowingShims')();
 }
-},{"react-is":"../node_modules/react-is/index.js","./factoryWithTypeCheckers":"../node_modules/prop-types/factoryWithTypeCheckers.js"}],"../node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react-is":"../node_modules/react-is/index.js","./factoryWithTypeCheckers":"../node_modules/prop-types/factoryWithTypeCheckers.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -32680,7 +32680,7 @@ function getBaseURL(url) {
 
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
-},{}],"../node_modules/parcel/src/builtins/css-loader.js":[function(require,module,exports) {
+},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -32715,12 +32715,12 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel/src/builtins/bundle-url.js"}],"components/date/style.scss":[function(require,module,exports) {
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"components/date/style.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel/src/builtins/css-loader.js"}],"components/date/index.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/date/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -32815,7 +32815,7 @@ function (_React$Component) {
         className: "date"
       }, _react.default.createElement("label", {
         htmlFor: "date"
-      }, "Qual \xE9 a data que voc\xEA quer lembrar?"), _react.default.createElement("input", {
+      }, "Select the date you want to remember:"), _react.default.createElement("input", {
         id: "date",
         type: "datetime-local",
         min: this.CURRENT_DATE,
@@ -32839,7 +32839,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel/src/builtins/css-loader.js"}],"components/timer/index.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/timer/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -32892,47 +32892,55 @@ function (_React$Component) {
     key: "showTime",
     value: function showTime() {
       var p = [];
+      var time = this.props.time;
+      var years = time.years,
+          months = time.months,
+          weeks = time.weeks,
+          days = time.days,
+          hours = time.hours,
+          minutes = time.minutes,
+          seconds = time.seconds;
 
-      if (this.props.time.years !== 0) {
+      if (years !== 0) {
         p.push(_react.default.createElement("p", {
           key: p.length
-        }, this.props.time.years, " year", this.props.time.years > 1 ? "s" : null, ","));
+        }, years, " year", years > 1 ? "s" : null, ","));
       }
 
-      if (this.props.time.months !== 0) {
+      if (months !== 0) {
         p.push(_react.default.createElement("p", {
           key: p.length
-        }, this.props.time.months, " month", this.props.time.months > 1 ? "s" : "", ","));
+        }, months, " month", months > 1 ? "s" : "", ","));
       }
 
-      if (this.props.time.weeks !== 0) {
+      if (weeks !== 0) {
         p.push(_react.default.createElement("p", {
           key: p.length
-        }, this.props.time.weeks, " week", this.props.time.weeks > 1 ? "s" : "", ","));
+        }, weeks, " week", weeks > 1 ? "s" : "", ","));
       }
 
-      if (this.props.time.days !== 0) {
+      if (days !== 0) {
         p.push(_react.default.createElement("p", {
           key: p.length
-        }, this.props.time.days, " day", this.props.time.days > 1 ? "s" : "", ","));
+        }, days, " day", days > 1 ? "s" : "", ","));
       }
 
-      if (this.props.time.hours !== 0) {
+      if (hours !== 0) {
         p.push(_react.default.createElement("p", {
           key: p.length
-        }, this.props.time.hours, " hour", this.props.time.hours > 1 ? "s" : "", ","));
+        }, hours, " hour", hours > 1 ? "s" : "", ","));
       }
 
-      if (this.props.time.minutes !== 0) {
+      if (minutes !== 0) {
         p.push(_react.default.createElement("p", {
           key: p.length
-        }, this.props.time.minutes, " minute", this.props.time.minutes > 1 ? "s" : ""));
+        }, minutes, " minute", minutes > 1 ? "s" : ""));
       }
 
-      if (this.props.time.seconds !== 0) {
+      if (seconds !== 0) {
         p.push(_react.default.createElement("p", {
           key: p.length
-        }, "and ", this.props.time.seconds, " second", this.props.time.seconds > 1 ? "s" : "", "."));
+        }, "and ", seconds, " second", seconds > 1 ? "s" : "", "."));
       }
 
       return p;
@@ -37565,7 +37573,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel/src/builtins/css-loader.js"}],"components/app/index.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/app/index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -37680,14 +37688,14 @@ function (_React$Component) {
         });
 
         if ((0, _moment.default)(date).isValid()) {
-          history.replaceState(date, "Quanto tempo falta?", "?date=" + date);
+          history.replaceState(date, "How much time?", "?date=" + date);
         } else {
           this.setState({
             userDate: null
           });
         }
       } else {
-        history.replaceState("", "Quanto tempo falta?", "/");
+        history.replaceState("", "How much time?", "/");
         this.setState({
           userDate: null
         });
@@ -37699,7 +37707,7 @@ function (_React$Component) {
     value: function render() {
       return _react.default.createElement("div", {
         className: "everything"
-      }, _react.default.createElement("h1", null, "Quanto tempo falta?"), _react.default.createElement(_date.default, {
+      }, _react.default.createElement("h1", null, "How much time left?"), _react.default.createElement(_date.default, {
         onDateChange: this.onDateChange,
         knownDate: this.state.userDate
       }), this.state.userDate && _react.default.createElement(_timer.default, {
@@ -37712,7 +37720,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 _reactDom.default.render(_react.default.createElement(App, null), document.getElementById("root"));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","/components/date":"components/date/index.js","/components/timer":"components/timer/index.js","moment":"../node_modules/moment/moment.js","./style.scss":"components/app/style.scss"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","/components/date":"components/date/index.js","/components/timer":"components/timer/index.js","moment":"../node_modules/moment/moment.js","./style.scss":"components/app/style.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -37740,7 +37748,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65428" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57634" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -37916,5 +37924,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel/src/builtins/hmr-runtime.js","components/app/index.js"], null)
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","components/app/index.js"], null)
 //# sourceMappingURL=/app.a2213586.js.map
