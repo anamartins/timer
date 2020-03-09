@@ -33,7 +33,7 @@ class App extends React.Component {
     let date = param.get("date");
 
     if (date !== null) {
-      this.onDateChange(new Date(date));
+      this.onDateChange(date);
     }
   }
 
@@ -64,6 +64,7 @@ class App extends React.Component {
   }
 
   onDateChange(date) {
+    console.log("date ondatechange", date);
     if (date !== "") {
       let userDate = new Date(date);
       this.setState({ userDate: userDate });

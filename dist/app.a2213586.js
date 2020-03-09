@@ -37646,7 +37646,7 @@ function (_React$Component) {
       var date = param.get("date");
 
       if (date !== null) {
-        this.onDateChange(new Date(date));
+        this.onDateChange(date);
       }
     }
   }, {
@@ -37681,6 +37681,8 @@ function (_React$Component) {
   }, {
     key: "onDateChange",
     value: function onDateChange(date) {
+      console.log("date ondatechange", date);
+
       if (date !== "") {
         var userDate = new Date(date);
         this.setState({
@@ -37748,7 +37750,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57634" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58071" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
