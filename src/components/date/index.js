@@ -52,7 +52,7 @@ class DateInput extends React.Component {
   render() {
     return (
       <div className="date">
-        <label htmlFor="date">Select the date you want to remember:</label>
+        <label htmlFor="date">Select the date you are expecting:</label>
         <input
           id="date"
           type="datetime-local"
