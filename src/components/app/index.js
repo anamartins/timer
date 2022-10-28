@@ -83,7 +83,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="everything">
-        <h1>How much time left?</h1>
+        <h1>How much time...?</h1>
         <DateInput
           onDateChange={this.onDateChange}
           knownDate={this.state.userDate}
